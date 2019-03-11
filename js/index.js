@@ -141,7 +141,7 @@ window.onload=function () {
 
                                     // create new google.maps.Marker instances
                                     geotaggedSignals[testName][dataRateName][index].marker = new google.maps.Marker({
-                                        position : {lat:signal.latitude, lng: signal.longitude},
+                                        position : {lat:parseFloat(signal.latitude), lng: parseFloat(signal.longitude)},
                                         map      : tempMap,
                                         title    : "counter: " + signal.counter + ", dataRate: " + signal.data_rate + ", rssi: " + signal.rssi+", snr: " + signal.snr,
                                         icon     : circle
