@@ -36,8 +36,8 @@ else {
     $testFilter.= "
     
             <div class='accordion-container'>
-                <h3 class='no-select'>Antenna configuration<span class='caret'></span></h3>
-                <div id='antennaConfigurations' class='content'>
+                <h3 class='no-select'>Node Experiments<span class='caret'></span></h3>
+                <div id='nodeExperiments' class='content'>
     
     
     ";
@@ -48,9 +48,9 @@ else {
     for($i = 0; $i <count($tests); $i++) {
         // add checkable list entries for every test configuration
         $testFilter.="
-                    <label for='antennaConfig_{$tests[$i]["id"]}' >
+                    <label for='nodeConfig_{$tests[$i]["id"]}' >
                         <span class='data_rate_checkbox'>{$tests[$i]["antenna"]} 
-                            <input type='checkbox' id='antennaConfig_{$tests[$i]["id"]}'  name='antennaConfig_{$tests[$i]["id"]}'  checked>
+                            <input type='checkbox' id='nodeConfig_{$tests[$i]["id"]}'  name='nodeConfig_{$tests[$i]["id"]}'  checked>
                             <span class='checked_indicator'>
                             <span class='check_mark'>
                         </span>

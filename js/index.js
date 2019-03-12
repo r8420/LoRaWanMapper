@@ -146,7 +146,7 @@ window.onload=function () {
                                 dataRateGroup.forEach(function(signal, index){
                                     // assign map if data fulfills filter, else null to hide marker
                                     let tempMap = null;
-                                    if($("#antennaConfigurations input[name='antennaConfig_"+testName+"']").is(":checked") && $("#dataRates input[name='"+dataRateName+"']").is(":checked") && parseFloat(signal.snr) >= parseFloat(minSNR) && parseFloat(signal.rssi) >= parseFloat(minRSSI)) {
+                                    if($("#nodeExperiments input[name='nodeConfig_"+testName+"']").is(":checked") && $("#dataRates input[name='"+dataRateName+"']").is(":checked") && parseFloat(signal.snr) >= parseFloat(minSNR) && parseFloat(signal.rssi) >= parseFloat(minRSSI)) {
                                         tempMap = map;
                                     }
 
@@ -154,12 +154,12 @@ window.onload=function () {
                                     geotaggedSignals[testName][dataRateName][index].marker = new google.maps.Marker({
                                         position : {lat:parseFloat(signal.latitude), lng: parseFloat(signal.longitude)},
                                         map      : tempMap,
-                                        title    : "counter: " + parseFloat(signal.counter) + ", dataRate: " + parseFloat(signal.data_rate) + ", rssi: " + parseFloat(signal.rssi)+", snr: " + parseFloat(signal.snr),
+                                        title    : "counter: " + parseInt(signal.counter) + ", dataRate: " + signal.data_rate + ", rssi: " + parseFloat(signal.rssi)+", snr: " + parseFloat(signal.snr),
                                         icon     : circle
                                     });
 
                                     // Push the location into PolyLine's path
-									                  path.push(new google.maps.LatLng(parseFloat(signal.latitude), parseFloat(signal.longitude)))
+                                                      path.push(new google.maps.LatLng(parseFloat(signal.latitude), parseFloat(signal.longitude)))
                                 });
                             }
                         }
@@ -184,7 +184,7 @@ window.onload=function () {
                         dataRateGroup.forEach(function(signal, index) {
                             // assign map if data fulfills filter, else null to hide marker
                             let tempMap = null;
-                            if($("#antennaConfigurations input[name='antennaConfig_"+testName+"']").is(":checked") && $("#dataRates input[name='"+dataRateName+"']").is(":checked") && parseFloat(signal.snr) >= parseFloat(minSNR) && parseFloat(signal.rssi) >= parseFloat(minRSSI)) {
+                            if($("#nodeExperiments input[name='nodeConfig_"+testName+"']").is(":checked") && $("#dataRates input[name='"+dataRateName+"']").is(":checked") && parseFloat(signal.snr) >= parseFloat(minSNR) && parseFloat(signal.rssi) >= parseFloat(minRSSI)) {
                                 tempMap = map;
                             }
                             if(geotaggedSignals[testName][dataRateName][index].marker.getMap() !== tempMap) {
@@ -198,7 +198,7 @@ window.onload=function () {
     }
 
     // apply filter
-    $("#dataRates input[type=checkbox], #antennaConfigurations input[type=checkbox]").on("click",function () {
+    $("#dataRates input[type=checkbox], #nodeExperiments input[type=checkbox]").on("click",function () {
         applyFilter();
     });
 
