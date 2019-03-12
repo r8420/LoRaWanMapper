@@ -8,8 +8,8 @@ const QUERY_URL = "/php/query.php";
 
 let map; // google maps instance
 let geotaggedSignals=[]; // array containing all the project data and markers
-var path;
-var poly;
+// var path;
+let poly=[];
 
 // callback for the maps api
 function initMap() {
@@ -33,14 +33,7 @@ function initMap() {
         title    : "Gateway"
     });
 
-    poly = new google.maps.Polyline({
-        strokeColor: '#de1738',
-        strokeOpacity: 100.0,
-        strokeWeight:4,
-        map:map
-      });
-    // Get the path form polyLine
-    path = poly.getPath();
+    
 }
 
 
@@ -94,7 +87,8 @@ window.onload=function () {
             // remove all old markers
             for (let testName in geotaggedSignals) {
                 if (geotaggedSignals.hasOwnProperty(testName)) {
-
+                    //poly[testName].setMap(null);
+                    //console.log(testName);
                     let testGroup = geotaggedSignals[testName];
                     for (let dataRateName in testGroup){
                         if (testGroup.hasOwnProperty(dataRateName)){
@@ -138,6 +132,15 @@ window.onload=function () {
                             scale: .75
                         };
 
+                        poly[testName] = new google.maps.Polyline({
+                            strokeColor: colors[parseInt(testName)+2],
+                            strokeOpacity: 0.70,
+                            strokeWeight:6,
+                            map:map
+                          });
+                        // Get the path form polyLine
+                        path = poly[testName].getPath();
+
 
                         for (let dataRateName in testGroup){
                             if (testGroup.hasOwnProperty(dataRateName)){
@@ -157,6 +160,7 @@ window.onload=function () {
                                         title    : "counter: " + parseInt(signal.counter) + ", dataRate: " + signal.data_rate + ", rssi: " + parseFloat(signal.rssi)+", snr: " + parseFloat(signal.snr),
                                         icon     : circle
                                     });
+                                    //console.log("counter: " + parseInt(signal.counter) + ", dataRate: " + signal.data_rate + ", rssi: " + parseFloat(signal.rssi)+", snr: " + parseFloat(signal.snr));
 
                                     // Push the location into PolyLine's path
                                                       path.push(new google.maps.LatLng(parseFloat(signal.latitude), parseFloat(signal.longitude)))
@@ -174,6 +178,12 @@ window.onload=function () {
         let minSNR  = $("#snrSlider").val();
 
         for (let testName in geotaggedSignals) {
+            if($("#nodeExperiments input[name='nodeConfig_"+testName+"']").is(":checked")){
+                poly[testName].setMap(map);
+            }
+            else{
+                poly[testName].setMap(null);
+            }
             if (geotaggedSignals.hasOwnProperty(testName)) {
                 let testGroup = geotaggedSignals[testName];
 
